@@ -49,6 +49,9 @@ namespace LearnOpenTK
         private Shader _shader;
 
         private Stopwatch _stopwatch;
+        
+        float speed = 1.5f;
+        
         public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings)
             : base(gameWindowSettings, nativeWindowSettings)
         {
@@ -121,7 +124,7 @@ namespace LearnOpenTK
             _shader.SetFloat("varyAmount", 0.2f);
 
             _stopwatch = new Stopwatch();
-            _stopwatch.Start();            
+            _stopwatch.Start();
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)
@@ -139,7 +142,7 @@ namespace LearnOpenTK
             GL.BindVertexArray(_vertexArrayObject);
             _shader.SetMatrix4("transform", Matrix4.Identity);
             GL.DrawElements(PrimitiveType.Triangles, _indices.Length * sizeof(uint), DrawElementsType.UnsignedInt, _indices);
-            Matrix4 trans = Matrix4.CreateTranslation(-0.5f, 0.5f, 0.0f);
+            Matrix4 trans = Matrix4.CreateTranslation(0f, 0.5f, 0.0f);
             float value = (float)Math.Sin((double)_stopwatch.ElapsedMilliseconds/1000);
             Matrix4 scale = Matrix4.CreateScale(value, value, value);
             _shader.SetMatrix4("transform", scale*trans);
